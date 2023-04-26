@@ -1,15 +1,16 @@
+import { ticketStatus } from "./TicketStatus"
 import "./Tickets.css"
 
 export const TicketFooter = ({ ticket }) => {
-  const ticketStatus = () => {
-    if (ticket.date_completed === null) {
-      if (ticket.employee) {
-        return <span className="status--in-progress">In progress</span>
-      }
-      return <span className="status--new">Unclaimed</span>
-    }
-    return <span className="status--completed">Done</span>
-  }
+  // const ticketStatus = () => {
+  //   if (ticket.date_completed === null) {
+  //     if (ticket.employee) {
+  //       return <span className="status--in-progress">In progress</span>
+  //     }
+  //     return <span className="status--new">Unclaimed</span>
+  //   }
+  //   return <span className="status--completed">Done</span>
+  // }
 
   return <footer className="ticket__footer">
     <div className="ticket__employee">
@@ -19,6 +20,6 @@ export const TicketFooter = ({ ticket }) => {
           : `Completed by ${ticket?.employee?.full_name} on ${ticket.date_completed}`
       }
     </div>
-    <div> {ticketStatus()} </div>
+    <div> {ticketStatus(ticket)} </div>
   </footer>
 }
