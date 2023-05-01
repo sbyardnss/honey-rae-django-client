@@ -42,6 +42,8 @@ export const TicketList = () => {
     <div>
       <button onClick={() => filterTickets("done")}>Show Done</button>
       <button onClick={() => filterTickets("all")}>Show All</button>
+      <button onClick={() => filterTickets("unclaimed")}>Show unclaimed</button>
+      <button onClick={() => filterTickets("inprogress")}>Show inprogress</button>
     </div>
     <div className="actions">{toShowOrNotToShowTheButton()}</div>
     <div className="activeTickets">{active}</div>

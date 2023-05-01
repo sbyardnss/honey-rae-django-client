@@ -42,6 +42,16 @@ export const Ticket = () => {
 
     updateTicket(updatedTicket).then(() => fetchTicket())
   }
+  const ticketCompletedEvent = () => {
+    const updatedTicket = {
+      ...ticket,
+      date_completed: new Date().toISOString().split('T')[0],
+      customer: ticket.customer.id,
+      employee: ticket.employee.id
+    }
+    console.log(updatedTicket)
+    updateTicket(updatedTicket).then(() => fetchTicket())
+  }
 
   // const ticketStatus = () => {
   //   if (ticket.date_completed === null) {
@@ -65,6 +75,7 @@ export const Ticket = () => {
             employees.map(e => <option key={`employee--${e.id}`} value={e.id}>{e.full_name}</option>)
           }
         </select>
+        <button onClick={() => ticketCompletedEvent()}>Mark Completed</button>
       </div>
     }
     else {
@@ -83,7 +94,7 @@ export const Ticket = () => {
           <div className="ticket__employee footerItem">
             {
               ticket.date_completed === null
-                ? employeePicker()
+                ? employeePicker() 
                 : `Completed by ${ticket.employee?.full_name} on ${ticket.date_completed}`
             }
           </div>
