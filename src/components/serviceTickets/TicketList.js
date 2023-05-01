@@ -2,17 +2,27 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { isStaff } from "../../utils/isStaff"
 import { TicketCard } from "./TicketCard"
-import { getAllTickets, searchTicketsByStatus } from "../../managers/TicketManager"
+import { getAllTickets, searchTickets, searchTicketsByStatus } from "../../managers/TicketManager"
 import "./Tickets.css"
 
 export const TicketList = () => {
   const [active, setActive] = useState("")
   const [tickets, setTickets] = useState([])
+  const [search, setSearch] = useState("")
   const navigate = useNavigate()
 
+  // useEffect(() => {
+  //   getAllTickets().then((res) => setTickets(res))
+  // }, [])
   useEffect(() => {
-    getAllTickets().then((res) => setTickets(res))
-  }, [])
+    if (search != "") {
+      searchTickets(search)
+      .then((data) => setTickets(data))
+    }
+    else {
+      getAllTickets().then((res) => setTickets(res))
+    }
+  },[search])
 
   useEffect(() => {
     const activeTicketCount = tickets.filter(t => t.date_completed === null).length
@@ -26,7 +36,7 @@ export const TicketList = () => {
 
   const toShowOrNotToShowTheButton = () => {
     if (isStaff()) {
-      return ""
+      return <input onChange={(evt)=> setSearch(evt.target.value)}></input>
     }
     else {
       return <button className="actions__create"
